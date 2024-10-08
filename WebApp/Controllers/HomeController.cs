@@ -17,9 +17,41 @@ public class HomeController : Controller
         return View();
     }
     
-    public IActionResult Calculator()
+    public IActionResult Calculator(string op, double? a, double? b)
     {
-        ViewBag.Result = 1234;
+       // var op = Request.Query["op"];
+       // var a = double.Parse( Request.Query["a"]);
+       // var b = double.Parse(Request.Query["b"]);
+       if (a is null || b is null)
+       {
+           ViewBag.ErrorMessage = "Niepoprawny format liczby w parametrze a lub b!!!";
+           return View("CustomError");
+       }
+       ViewBag.A = a;
+       ViewBag.B = b;
+       switch (op)
+       {
+            case "add" :
+                ViewBag.Result = a + b;
+                ViewBag.Operator = "+";
+                break;
+            case "sub" :
+                ViewBag.Result = a - b;
+                ViewBag.Operator = "-";
+                break;
+            case "div" :
+                ViewBag.Result = a / b;
+                ViewBag.Operator = "/";
+                break;
+            case "mul" :
+                ViewBag.Result = a * b;
+                ViewBag.Operator = "*";
+                break;
+            default:
+                ViewBag.ErrorMessage = "Nieznany operator!!!";
+                return View("CustomError");
+        }
+        //ViewBag.Result = 1234;
         return View();
     }
     public IActionResult Index()
