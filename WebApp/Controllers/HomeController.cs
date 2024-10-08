@@ -53,10 +53,25 @@ public class HomeController : Controller
                 ViewBag.Result = a * b;
                 ViewBag.Operator = "*";
                 break;
-            
-                
         }
         //ViewBag.Result = 1234;
+        return View();
+    }
+
+    public IActionResult Age( DateTime datauro, DateTime datatera)
+    {
+        ViewBag.urodziny = datauro;
+        ViewBag.teraz = datatera;
+        int age =datatera.Year - datauro.Year ;
+        if (datatera.Month < datauro.Month)
+        {
+            age --;
+        }
+
+        ViewBag.Result = age;
+        
+        
+
         return View();
     }
     public IActionResult Index()
