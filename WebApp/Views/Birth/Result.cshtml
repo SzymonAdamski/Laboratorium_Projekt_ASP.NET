@@ -1,0 +1,26 @@
+﻿@model WebApp.Models.Birth
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Wynik</title>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6">
+            <h2>Wynik</h2>
+            @if (Model != null)
+            {
+            <p>Cześć @Model.Name @Model.Surname, masz @Model.CalculateAge() lat(a).</p>
+            }
+            else
+            {
+            <p>Wystąpił błąd. Nieprawidłowe dane.</p>
+            }
+        </div>
+    </div>
+</div>
+</body>
+</html>
