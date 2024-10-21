@@ -1,38 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApp.Models; 
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
     public class CalculatorController : Controller
     {
-        // GET: CalculatorController/Form
         public IActionResult Form()
         {
             return View();
         }
 
-        public IActionResult Result(Operators? op, double? a, double? b)
+        [HttpPost]
+        public IActionResult Result([FromForm] Calculator model)
         {
-            if (a is null || b is null)
+            if (!model.IsValid())
             {
-                ViewBag.ErrorMessage = "Niepoprawny format liczby w parametrze a lub b!!!";
+                ViewBag.ErrorMessage = "Niepoprawne dane wejściowe!";
                 return View("CustomError");
             }
 
-            if (op is null)
-            {
-                ViewBag.ErrorMessage = "Nieznany operator!!!";
-                return View("CustomError");
-            }
-
-            var calculator = new Calculator
-            {
-                a = a,
-                b = b,
-                Operator = op
-            };
-
-            return View(calculator);
+            return View(model);
         }
     }
 }
