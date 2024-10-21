@@ -1,15 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Models; 
 
 namespace WebApp.Controllers
 {
     public class CalculatorController : Controller
     {
-        // GET: CalculatorController
+        // GET: CalculatorController/Form
         public IActionResult Form()
         {
             return View();
         }
-        public IActionResult Result(Operator? op, double? a, double? b)
+
+        public IActionResult Result(Operators? op, double? a, double? b)
         {
             if (a is null || b is null)
             {
@@ -20,32 +22,17 @@ namespace WebApp.Controllers
             if (op is null)
             {
                 ViewBag.ErrorMessage = "Nieznany operator!!!";
-                return View("CustomError"); 
+                return View("CustomError");
             }
-            ViewBag.A = a;
-            ViewBag.B = b;
-            switch (op)
-            {
-                case Operator.Add:
-                    ViewBag.Result = a + b;
-                    ViewBag.Operator = "+";
-                    break;
-                case Operator.Sub:
-                    ViewBag.Result = a - b;
-                    ViewBag.Operator = "-";
-                    break;
-                case Operator.Div:
-                    ViewBag.Result = a / b;
-                    ViewBag.Operator = "/";
-                    break;
-                case Operator.Mul:
-                    ViewBag.Result = a * b;
-                    ViewBag.Operator = "*";
-                    break;
-            }
-            return View();
-        }
-        
 
+            var calculator = new Calculator
+            {
+                a = a,
+                b = b,
+                Operator = op
+            };
+
+            return View(calculator);
+        }
     }
 }

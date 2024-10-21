@@ -17,44 +17,45 @@ public class HomeController : Controller
         return View();
     }
     
-    public IActionResult Calculator(Operator? op, double? a, double? b)
+    public IActionResult Calculator(Operators? op, double? a, double? b)
     {
-       // var op = Request.Query["op"];
-       // var a = double.Parse( Request.Query["a"]);
-       // var b = double.Parse(Request.Query["b"]);
-       if (a is null || b is null)
-       {
-           ViewBag.ErrorMessage = "Niepoprawny format liczby w parametrze a lub b!!!";
-           return View("CustomError");
-       }
+        // var op = Request.Query["op"];
+        // var a = double.Parse(Request.Query["a"]);
+        // var b = double.Parse(Request.Query["b"]);
+        if (a is null || b is null)
+        {
+            ViewBag.ErrorMessage = "Niepoprawny format liczby w parametrze a lub b!!!";
+            return View("CustomError");
+        }
 
-       if (op is null)
-       {
-           ViewBag.ErrorMessage = "Nieznany operator!!!";
-           return View("CustomError"); 
-       }
-       ViewBag.A = a;
-       ViewBag.B = b;
-       switch (op)
-       {
-            case Operator.Add :
+        if (op is null)
+        {
+            ViewBag.ErrorMessage = "Nieznany operator!!!";
+            return View("CustomError");
+        }
+    
+        ViewBag.A = a;
+        ViewBag.B = b;
+        switch (op)
+        {
+            case Operators.Add:
                 ViewBag.Result = a + b;
                 ViewBag.Operator = "+";
                 break;
-            case Operator.Sub :
+            case Operators.Sub:
                 ViewBag.Result = a - b;
                 ViewBag.Operator = "-";
                 break;
-            case Operator.Div :
+            case Operators.Div:
                 ViewBag.Result = a / b;
                 ViewBag.Operator = "/";
                 break;
-            case Operator.Mul :
+            case Operators.Mul:
                 ViewBag.Result = a * b;
                 ViewBag.Operator = "*";
                 break;
         }
-        //ViewBag.Result = 1234;
+
         return View();
     }
 
@@ -91,7 +92,10 @@ public class HomeController : Controller
     }
 }
 
-public enum Operator
+public enum Operators
 {
-    Add,Sub,Div,Mul,
+    Add,
+    Sub,
+    Div,
+    Mul
 }
