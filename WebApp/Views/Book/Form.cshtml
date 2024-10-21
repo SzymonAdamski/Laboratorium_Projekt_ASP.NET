@@ -1,0 +1,53 @@
+﻿@model WebApp.Models.Book
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Dodaj Książkę</title>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6">
+            <h2>Dodaj Nową Książkę</h2>
+            <form asp-action="Save" method="post">
+                <div class="mb-3">
+                    <label class="form-label" for="title">Tytuł</label>
+                    <input class="form-control" type="text" asp-for="Title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="author">Autor</label>
+                    <input class="form-control" type="text" asp-for="Author" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="pages">Liczba Stron</label>
+                    <input class="form-control" type="number" asp-for="Pages" />
+                    <span asp-validation-for="Pages" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="isbn">ISBN</label>
+                    <input class="form-control" type="text" asp-for="ISBN" />
+                    <span asp-validation-for="ISBN" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="yearPublished">Rok Wydania</label>
+                    <input class="form-control" type="number" asp-for="YearPublished" />
+                    <span asp-validation-for="YearPublished" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="publisher">Wydawnictwo</label>
+                    <input class="form-control" type="text" asp-for="Publisher" />
+                    <span asp-validation-for="Publisher" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="submit">Zapisz</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
