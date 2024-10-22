@@ -13,34 +13,29 @@
             <h2>Dodaj Nową Książkę</h2>
             <form asp-action="Save" method="post">
                 <div class="mb-3">
-                    <label class="form-label" for="title">Tytuł</label>
+                    <label class="form-label" for="title">nazwa</label>
                     <input class="form-control" type="text" asp-for="Title" />
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="author">Autor</label>
-                    <input class="form-control" type="text" asp-for="Author" />
-                    <span asp-validation-for="Author" class="text-danger"></span>
+                    <label class="form-label" for="author">Producent</label>
+                    <input class="form-control" type="text" asp-for="Producent" />
+                    <span asp-validation-for="Producent" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="pages">Liczba Stron</label>
-                    <input class="form-control" type="number" asp-for="Pages" />
-                    <span asp-validation-for="Pages" class="text-danger"></span>
+                    <label class="form-label" for="pages">cena</label>
+                    <input class="form-control" type="number" asp-for="Cena" />
+                    <span asp-validation-for="Cena" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="isbn">ISBN</label>
-                    <input class="form-control" type="text" asp-for="ISBN" />
-                    <span asp-validation-for="ISBN" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="yearPublished">Rok Wydania</label>
+                    <label class="form-label" for="yearPublished">Rok Produkcji</label>
                     <input class="form-control" type="number" asp-for="YearPublished" />
                     <span asp-validation-for="YearPublished" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="publisher">Wydawnictwo</label>
-                    <input class="form-control" type="text" asp-for="Publisher" />
-                    <span asp-validation-for="Publisher" class="text-danger"></span>
+                    <label class="form-label" for="publisher">Opis</label>
+                    <input class="form-control" type="text" asp-for="Opis" />
+                    <span asp-validation-for="Opis" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary" type="submit">Zapisz</button>

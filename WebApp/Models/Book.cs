@@ -15,11 +15,11 @@ namespace WebApp.Models
 
         [Required(ErrorMessage = "Proszę podać autora!")]
         [StringLength(50, ErrorMessage = "Autor nie może przekraczać 50 znaków!")]
-        public string Author { get; set; }
+        public string Producent { get; set; }
 
-        [Required(ErrorMessage = "Proszę podać liczbę stron!")]
-        [Range(1, int.MaxValue, ErrorMessage = "Liczba stron musi być dodatnia!")]
-        public int Pages { get; set; }
+        [Required(ErrorMessage = "Proszę podać Cene!")]
+        [Range(1, int.MaxValue, ErrorMessage = "Cena musi być dodatnia!")]
+        public int Cena { get; set; }
 
         [Required(ErrorMessage = "Proszę podać numer ISBN!")]
         [RegularExpression(@"\d{3}-\d{1,5}-\d{1,7}-\d{1,7}-\d{1}", ErrorMessage = "Podaj poprawny numer ISBN!")]
@@ -31,6 +31,6 @@ namespace WebApp.Models
 
         [Required(ErrorMessage = "Proszę podać wydawnictwo!")]
         [StringLength(50, ErrorMessage = "Nazwa wydawnictwa nie może przekraczać 50 znaków!")]
-        public string Publisher { get; set; }
+        public string Opis { get; set; }
     }
 }
