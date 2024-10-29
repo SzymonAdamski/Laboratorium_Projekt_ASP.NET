@@ -1,45 +1,47 @@
-﻿@model System.Collections.Generic.Dictionary<int,WebApp.Models.ContactModel>
+﻿@model List<ContactModel>
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+ViewBag.Title = "Kontakty";
+Layout = "_Layout";
 }
 
 <h2>Kontakty</h2>
-<a class="btn btn-primary" asp-action="Add" asp-controller="Contact">Dodaj kontakt</a>
-<h4>Lista kontaktów</h4>
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            Imię
-        </th>
-        <th>
-            Nazwisko
-        </th>
-        <th>
-            Akcje
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var entry in @Model)
-    {
+<a class="btn btn-primary" asp-action="Create" asp-controller="Contact">Dodaj kontakt</a>
+
+<h3>Lista kontaktów</h3>
+@if (Model.Count > 0)
+{
+<div class="table-responsive">
+    <table class="table">
+        <thead>
         <tr>
+            <th>@Html.DisplayNameFor(m => m[0].FirstName)</th>
+            <th>@Html.DisplayNameFor(m => m[0].LastName)</th>
+            <th>@Html.DisplayNameFor(m => m[0].Category)</th>
+            <th class="text-end">Operacje</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var entry in Model)
+        {
+        <tr>
+            <td>@entry.FirstName</td>
+            <td>@entry.LastName</td>
+            <td>@entry.Category</td>
             <td>
-                @entry.Value.FirstName
-            </td>
-            <td>
-                @entry.Value.LasttName
-            </td>
-            <td>
-                <div>
-                    <a class="btn btn-primary">Edycja</a>
-                    <a class="btn btn-primary">Szczegóły</a>
-                    <a class="btn btn-primary" asp-action="Delete" asp-route-id="@entry.Key">Usuń</a>
+                <div class="float-end">
+                    <a class="btn btn-success" asp-route-id="@entry.Id" asp-action="Edit" asp-controller="Contact">Edytuj</a>
+                    <a class="btn btn-info" asp-route-id="@entry.Id" asp-action="Details" asp-controller="Contact">Szczegóły</a>
+                    <a class="btn btn-danger" asp-route-id="@entry.Id" asp-action="Delete" asp-controller="Contact">Usuń</a>
                 </div>
             </td>
         </tr>
-    }
-    </tbody>
-</table>
+        }
+        </tbody>
+    </table>
+</div>
+}
+else
+{
+<h2 class="text-danger">Na razie brak kontaktów!</h2>
+}
