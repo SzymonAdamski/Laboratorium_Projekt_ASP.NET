@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-public enum Category
+public enum CategoryModel
 {
    [Display(Name = "Rodzina", Order = 1)]
    Family = 1,

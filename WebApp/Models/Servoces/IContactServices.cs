@@ -1,10 +1,11 @@
-﻿namespace WebApp.Models.Servoces;
+﻿using WebApplication1.Models;
+namespace WebApplication1.Models.Services;
 
 public interface IContactServices
 {
-    void Add(ContactModel model);
-    void Update(ContactModel model);
-    void Delete(ContactModel model);
+    void Add(ContactModel contact);
+    void Update(ContactModel contact);
+    void Delete(int id);
     List<ContactModel> GetAll();
-    ContactModel? GetById(int id);
+    ContactModel GetById(int id);
 }
