@@ -7,14 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Areas\model\Controllers\" />
-      <Folder Include="Areas\model\Data\" />
-      <Folder Include="Areas\model\Models\" />
-      <Folder Include="Areas\model\Views\" />
     </ItemGroup>
 
 </Project>
