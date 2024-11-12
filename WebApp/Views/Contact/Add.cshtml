@@ -38,6 +38,12 @@ Layout = "_Layout";
                 asp-for="Category"></select>
         <span asp-validation-for="Category" class="text-danger"></span>
     </div>
+    
+    <div class="mb-3">
+        <label class="form-label" asp-for="OrganizationId"></label>
+        <select asp-for="OrganizationId" asp-items="@Model.Organizations"></select>
+        <span asp-validation-for="OrganizationId" class="text-danger"></span>
+    </div>
     <button type="submit" class="btn btn-outline-primary">Dodaj</button>
 
 

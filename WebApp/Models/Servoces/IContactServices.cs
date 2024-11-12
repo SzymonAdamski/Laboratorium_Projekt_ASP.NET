@@ -1,4 +1,5 @@
-﻿using WebApplication1.Models;
+﻿using WebApp.Models;
+using WebApplication1.Models;
 namespace WebApplication1.Models.Services;
 
 public interface IContactServices
@@ -8,4 +9,6 @@ public interface IContactServices
     void Delete(int id);
     List<ContactModel> GetAll();
     ContactModel? GetById(int id);
+
+    List<OrganizationEntity> GetOrganization();
 }
