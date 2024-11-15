@@ -40,13 +40,16 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Add(ContactModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);   
-            }
-
-            _contactService.Add(model);
-            return View("Index");
+           var model = new ContactModel();
+            model.Organizations = _contactService.GetOrganization()
+                .Select(i => new SelectListItem()
+                {
+                    Value = i.Id.ToString(),
+                    Text = i.Name,
+                    Selected = i.Id == 1
+                })
+                .ToList();
+            return View();
         }
 
         public ActionResult Delete(int id)
