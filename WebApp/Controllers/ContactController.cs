@@ -8,74 +8,103 @@ namespace WebApplication1.Controllers
     public class ContactController : Controller
     {
         private readonly IContactServices _contactService;
-        
 
         public ContactController(IContactServices contactService)
         {
             _contactService = contactService;
         }
 
-        // Lista kontaktów 
+        // Lista kontaktów
         public ActionResult Index()
         {
-            return View(_contactService.GetAll());
-        }
-        
-        //Dodanie kontaktu formularz 
-        public ActionResult Add()
-        {
-            var model = new ContactModel();
-            model.Organizations = _contactService.GetOrganization()
-                .Select(i => new SelectListItem()
-                {
-                    Value = i.Id.ToString(),
-                    Text = i.Name,
-                    Selected = i.Id == 1
-                })
-                .ToList();
-            return View();
+            var contacts = _contactService.GetAll();
+            return View(contacts);
         }
 
-        //Odebranie danych z formularza i zapisanie w kontaktach
+        // Wyświetlenie formularza dodawania kontaktu
+        public ActionResult Add()
+        {
+            var model = CreateContactModel();
+            return View(model);
+        }
+
+        // Odebranie danych z formularza i zapisanie w kontaktach
         [HttpPost]
         public ActionResult Add(ContactModel model)
         {
-           var model = new ContactModel();
-            model.Organizations = _contactService.GetOrganization()
-                .Select(i => new SelectListItem()
-                {
-                    Value = i.Id.ToString(),
-                    Text = i.Name,
-                    Selected = i.Id == 1
-                })
-                .ToList();
-            return View();
+            if (!ModelState.IsValid)
+            {
+                model.Organizations = GetOrganizationsSelectList();
+                return View(model);
+            }
+
+            _contactService.Add(model);
+            return RedirectToAction("Index");
         }
 
+        // Usunięcie kontaktu
         public ActionResult Delete(int id)
         {
             _contactService.Delete(id);
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
+        // Szczegóły kontaktu
         public ActionResult Details(int id)
         {
-            return View(_contactService.GetById(id));
+            var contact = _contactService.GetById(id);
+            if (contact == null)
+            {
+                return NotFound();
+            }
+
+            return View(contact);
         }
-        
+
+        // Edycja kontaktu
         public ActionResult Edit(int id)
         {
-            return View(_contactService.GetById(id));
+            var contact = _contactService.GetById(id);
+            if (contact == null)
+            {
+                return NotFound();
+            }
+
+            contact.Organizations = GetOrganizationsSelectList();
+            return View(contact);
         }
+
         [HttpPost]
         public ActionResult Edit(ContactModel model)
         {
             if (!ModelState.IsValid)
             {
+                model.Organizations = GetOrganizationsSelectList();
                 return View(model);
             }
+
             _contactService.Update(model);
-            return View("Index");
+            return RedirectToAction("Index");
+        }
+
+        // Metody pomocnicze
+        private ContactModel CreateContactModel()
+        {
+            return new ContactModel
+            {
+                Organizations = GetOrganizationsSelectList()
+            };
+        }
+
+        private List<SelectListItem> GetOrganizationsSelectList()
+        {
+            return _contactService.GetOrganization()
+                .Select(i => new SelectListItem
+                {
+                    Value = i.Id.ToString(),
+                    Text = i.Name
+                })
+                .ToList();
         }
     }
 }
