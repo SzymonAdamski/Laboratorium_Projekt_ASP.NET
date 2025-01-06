@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebApp.Models.Movie>
+
+<h1>Lista Filmów</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Tytuł</th>
+        <th>Popularność</th>
+        <th>Dochód</th>
+        <th>Czas Trwania</th>
+        <th>Średnia Głosów</th>
+        <th>Liczba Głosów</th>
+        <th>Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var movie in Model)
+    {
+    <tr>
+        <td>@movie.Title</td>
+        <td>@movie.Popularity</td>
+        <td>@movie.Revenue.ToString("C")</td>
+        <td>@movie.Runtime min</td>
+        <td>
+            @for (int i = 0; i < Math.Round(movie.VoteAverage / 2); i++)
+            {
+            <span>★</span>
+            }
+        </td>
+        <td>@movie.VoteCount</td>
+        <td>
+            <a asp-controller="Movies" asp-action="ManageKeywords" asp-route-id="@movie.MovieId" class="btn btn-primary">
+                Dodaj Słowo Kluczowe
+            </a>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,20 @@
+﻿@model WebApp.Models.Movie
+
+<h1>Zarządzanie Słowami Kluczowymi</h1>
+
+<form asp-action="AddKeyword" method="post">
+    <input type="hidden" name="MovieId" value="@Model.MovieId" />
+    <div class="form-group">
+        <label for="keyword">Dodaj Słowo Kluczowe:</label>
+        <input type="text" id="keyword" name="Keyword" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+</form>
+
+<h2>Aktualne Słowa Kluczowe</h2>
+<ul>
+    @foreach (var keyword in Model.MovieKeywords.Select(mk => mk.Keyword))
+    {
+    <li>@keyword.KeywordName</li>
+    }
+</ul>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebApp.Models.ProductionCompany>
+
+<h1>Witamy w aplikacji!</h1>
+<a href="/ProductionCompanies/Index">Przejdź do listy wytwórni filmowych</a>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nazwa Wytwórni</th>
+        <th>Liczba Filmów</th>
+        <th>Całkowity Budżet</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var company in Model)
+    {
+    <tr>
+        <td>@company.CompanyName</td>
+        <td>
+            <a asp-action="Movies" asp-route-id="@company.CompanyId">
+                @company.MovieProductionCompanies.Count
+            </a>
+        </td>
+        <td>
+            @company.MovieProductionCompanies
+            .Sum(mpc => mpc.Movie.Budget)
+            .ToString("C")
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>
