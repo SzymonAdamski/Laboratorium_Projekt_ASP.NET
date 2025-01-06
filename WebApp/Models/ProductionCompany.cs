@@ -1,9 +1,15 @@
-﻿namespace WebApp.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace WebApp.Models;
+
+[Table("production_company")]
 public class ProductionCompany
 {
-    public int CompanyId { get; set; } // Odpowiada "company_id"
-    public string CompanyName { get; set; } // Odpowiada "company_name"
+    [Column("company_id")]
+    public long CompanyId { get; set; }  // Zmiana z int na long
+    
+    [Column("company_name")]
+    public string CompanyName { get; set; }
 
     public ICollection<MovieProductionCompany> MovieProductionCompanies { get; set; }
 }

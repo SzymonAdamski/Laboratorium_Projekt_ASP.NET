@@ -1,0 +1,91 @@
+﻿@model WebApp.Models.Movie
+
+<h1>@Model.Title</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <dl class="row">
+            <dt class="col-sm-3">Budżet</dt>
+            <dd class="col-sm-9">@(Model.Budget?.ToString("C") ?? "Brak danych")</dd>
+
+            <dt class="col-sm-3">Strona WWW</dt>
+            <dd class="col-sm-9">
+                @if (!string.IsNullOrEmpty(Model.Homepage))
+                {
+                <a href="@Model.Homepage" target="_blank">@Model.Homepage</a>
+                }
+                else
+                {
+                <span>Brak danych</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Opis</dt>
+            <dd class="col-sm-9">@(Model.Overview ?? "Brak opisu")</dd>
+
+            <dt class="col-sm-3">Popularność</dt>
+            <dd class="col-sm-9">@(Model.Popularity?.ToString("F2") ?? "Brak danych")</dd>
+
+            <dt class="col-sm-3">Data Premiery</dt>
+            <dd class="col-sm-9">@(Model.ReleaseDate?.ToShortDateString() ?? "Brak danych")</dd>
+
+            <dt class="col-sm-3">Przychód</dt>
+            <dd class="col-sm-9">@(Model.Revenue?.ToString("C") ?? "Brak danych")</dd>
+
+            <dt class="col-sm-3">Czas Trwania</dt>
+            <dd class="col-sm-9">@(Model.Runtime != null ? $"{Model.Runtime} min" : "Brak danych")</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">@(Model.MovieStatus ?? "Brak danych")</dd>
+
+            <dt class="col-sm-3">Tagline</dt>
+            <dd class="col-sm-9">@(Model.Tagline ?? "Brak danych")</dd>
+
+            <dt class="col-sm-3">Średnia Ocen</dt>
+            <dd class="col-sm-9">@(Model.VoteAverage?.ToString("F1") ?? "Brak danych")</dd>
+
+            <dt class="col-sm-3">Liczba Głosów</dt>
+            <dd class="col-sm-9">@(Model.VoteCount?.ToString() ?? "Brak danych")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h3>Wytwórnie Filmowe</h3>
+        <ul>
+            @if (Model.MovieProductionCompanies?.Any() == true)
+            {
+            @foreach (var mpc in Model.MovieProductionCompanies)
+            {
+            <li>@mpc.ProductionCompany.CompanyName</li>
+            }
+            }
+            else
+            {
+            <li>Brak danych o wytwórniach</li>
+            }
+        </ul>
+    </div>
+
+    <div class="col-md-6">
+        <h3>Słowa Kluczowe</h3>
+        <ul>
+            @if (Model.MovieKeywords?.Any() == true)
+            {
+            @foreach (var mk in Model.MovieKeywords)
+            {
+            <li>@mk.Keyword.KeywordName</li>
+            }
+            }
+            else
+            {
+            <li>Brak słów kluczowych</li>
+            }
+        </ul>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Powrót do Listy</a>
+</div>

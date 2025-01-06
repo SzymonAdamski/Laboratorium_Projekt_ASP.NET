@@ -1,9 +1,15 @@
-﻿namespace WebApp.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace WebApp.Models;
+
+[Table("keyword")]
 public class Keyword
 {
-    public int KeywordId { get; set; } // Odpowiada "keyword_id"
-    public string KeywordName { get; set; } // Odpowiada "keyword_name"
+    [Column("keyword_id")]
+    public long KeywordId { get; set; }
+    
+    [Column("keyword_name")]
+    public string KeywordName { get; set; }
 
     public ICollection<MovieKeyword> MovieKeywords { get; set; }
 }
