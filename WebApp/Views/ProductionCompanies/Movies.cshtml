@@ -1,0 +1,136 @@
+@model PaginatedList<WebApp.Models.Movie>
+
+<h1>Lista Filmów</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tytuł</th>
+            <th>Popularność</th>
+            <th>Przychód</th>
+            <th>Czas Trwania</th>
+            <th>Ocena</th>
+            <th>Liczba Głosów</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+                <td>@(movie.Popularity?.ToString("F2") ?? "Brak danych")</td>
+                <td>@(movie.Revenue?.ToString("C0") ?? "Brak danych")</td>
+                <td>@(movie.Runtime != null ? $"{movie.Runtime} min" : "Brak danych")</td>
+                <td>
+                    @if (movie.VoteAverage.HasValue)
+                    {
+                        var stars = Math.Round(movie.VoteAverage.Value);
+                        for (int i = 0; i < 10; i++)
+                        {
+                            if (i < stars)
+                            {
+                                <i class="fas fa-star text-warning"></i>
+                            }
+                            else
+                            {
+                                <i class="far fa-star text-warning"></i>
+                            }
+                        }
+                        <span class="ms-2">(@movie.VoteAverage.Value.ToString("F1"))</span>
+                    }
+                    else
+                    {
+                        <span>Brak ocen</span>
+                    }
+                </td>
+                <td>@(movie.VoteCount?.ToString("N0") ?? "Brak danych")</td>
+                <td>
+                    <a asp-controller="Movies" asp-action="ManageKeywords" asp-route-id="@movie.MovieId" 
+                       class="btn btn-primary btn-sm">
+                        <i class="fas fa-tags"></i> Dodaj słowo kluczowe
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var maxPagesToShow = 5;
+    var startPage = Math.Max(1, Model.PageIndex - 2);
+    var endPage = Math.Min(Model.TotalPages, startPage + maxPagesToShow - 1);
+    startPage = Math.Max(1, endPage - maxPagesToShow + 1);
+}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @prevDisabled">
+            <a class="page-link @prevDisabled" 
+               asp-action="Movies" 
+               asp-route-pageNumber="@(Model.PageIndex - 1)">
+                Poprzednia
+            </a>
+        </li>
+
+        @if (startPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Movies" 
+                   asp-route-pageNumber="1">1</a>
+            </li>
+            if (startPage > 2)
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            }
+        }
+
+        @for (var i = startPage; i <= endPage; i++)
+        {
+            <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                <a class="page-link" asp-action="Movies" 
+                   asp-route-pageNumber="@i">
+                    @i
+                </a>
+            </li>
+        }
+
+        @if (endPage < Model.TotalPages)
+        {
+            if (endPage < Model.TotalPages - 1)
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            }
+            <li class="page-item">
+                <a class="page-link" asp-action="Movies" 
+                   asp-route-pageNumber="@Model.TotalPages">@Model.TotalPages</a>
+            </li>
+        }
+
+        <li class="page-item @nextDisabled">
+            <a class="page-link @nextDisabled" 
+               asp-action="Movies" 
+               asp-route-pageNumber="@(Model.PageIndex + 1)">
+                Następna
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="text-center mt-3">
+    <p>
+        Strona @Model.PageIndex z @Model.TotalPages (Łącznie rekordów: @Model.TotalItems)
+    </p>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Powrót do listy
+    </a>
+</div>
